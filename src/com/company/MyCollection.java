@@ -40,7 +40,7 @@ public final class MyCollection<E> implements Collection<E> {
     public boolean contains(final Object o) {
         boolean isElement = false;
         for (int i = 0; i < size; i++) {
-            if (elementData[i].equals(o)) {
+            if (elementData[i] != null && elementData[i].equals(o)) {
                 isElement = true;
                 break;
             }
@@ -70,13 +70,13 @@ public final class MyCollection<E> implements Collection<E> {
     public boolean remove(final Object o) {
         boolean isElement = false;
         for (int i = 0; i < size; i++) {
-            if (elementData[i].equals(o)) {
+            if (elementData[i] != null && elementData[i].equals(o)) {
                 isElement = true;
                 size--;
                 for (int j = i; j < elementData.length - 1; j++) {
                     elementData[j] = elementData[j + 1];
                 }
-                elementData = Arrays.copyOf(elementData, elementData.length - 1);
+                elementData[elementData.length - 1] = null;
                 break;
             }
         }
@@ -91,7 +91,7 @@ public final class MyCollection<E> implements Collection<E> {
         ) {
             isElement = false;
             for (int i = 0; i < size; i++) {
-                if (elementData[i].equals(obj)) {
+                if (elementData[i] != null && elementData[i].equals(obj)) {
                     isElement = true;
                     break;
                 }
@@ -123,14 +123,14 @@ public final class MyCollection<E> implements Collection<E> {
         for (Object obj : c
         ) {
             for (int i = 0; i < size; i++) {
-                if (elementData[i].equals(obj)) {
+                if (elementData[i] != null && elementData[i].equals(obj)) {
                     isElement = true;
                     size--;
                     for (int j = i; j < elementData.length - 1; j++) {
                         elementData[j] = elementData[j + 1];
                     }
                     i--;
-                    elementData = Arrays.copyOf(elementData, elementData.length - 1);
+                    elementData[elementData.length - 1] = null;
                 }
             }
         }
@@ -144,7 +144,7 @@ public final class MyCollection<E> implements Collection<E> {
         for (int i = 0; i < size; i++) {
             for (Object obj : c
             ) {
-                if (elementData[i].equals(obj)) {
+                if (elementData[i] != null && elementData[i].equals(obj)) {
                     newCollection.add(obj);
                     break;
                 }
@@ -155,7 +155,7 @@ public final class MyCollection<E> implements Collection<E> {
             return false;
         } else {
             size = newCollection.toArray().length;
-            elementData = Arrays.copyOf(newCollection.toArray(), size);
+            elementData = Arrays.copyOf(newCollection.toArray(), elementData.length);
             return true;
         }
     }
@@ -163,7 +163,10 @@ public final class MyCollection<E> implements Collection<E> {
     @Override
     public void clear() {
         size = 0;
-        elementData = Arrays.copyOf(elementData, size);
+        for (Object obj : elementData
+        ) {
+            obj = null;
+        }
     }
 
     private class MyIterator<T> implements Iterator<T> {
@@ -176,7 +179,6 @@ public final class MyCollection<E> implements Collection<E> {
         }
 
         private boolean isNext = false;
-
 
 
         @Override
@@ -196,6 +198,7 @@ public final class MyCollection<E> implements Collection<E> {
                 throw new IllegalStateException();
             } else {
                 cursor--;
+                size--;
                 for (int i = cursor; i < elementData.length - 1; i++) {
                     elementData[i] = elementData[i + 1];
                 }

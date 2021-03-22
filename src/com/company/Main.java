@@ -20,13 +20,16 @@ public class Main {
         ) {
             System.out.print(" " + i);
         }
-        it.remove();
+        //it.remove();
         it.next();
         it.remove();
         it.next();
         it.next();
         //it.remove();
-
+        for (Integer i : myCollection
+        ) {
+            System.out.print(" " + i);
+        }
 
         System.out.println();
         Integer[] arr = {1};
@@ -41,8 +44,7 @@ public class Main {
         list.add(3);
 
 
-        System.out.println(myCollection.retainAll(list));
-
+        System.out.println(myCollection.containsAll(list));
 
         for (Integer i : myCollection
         ) {
