@@ -40,7 +40,8 @@ public final class MyCollection<E> implements Collection<E> {
     public boolean contains(final Object o) {
         boolean isElement = false;
         for (int i = 0; i < size; i++) {
-            if (elementData[i] != null && elementData[i].equals(o)) {
+            if (elementData[i] != null && elementData[i].equals(o)
+                    || elementData[i] == null && elementData[i] == o) {
                 isElement = true;
                 break;
             }
@@ -70,7 +71,8 @@ public final class MyCollection<E> implements Collection<E> {
     public boolean remove(final Object o) {
         boolean isElement = false;
         for (int i = 0; i < size; i++) {
-            if (elementData[i] != null && elementData[i].equals(o)) {
+            if (elementData[i] != null && elementData[i].equals(o)
+                    || elementData[i] == null && elementData[i] == o) {
                 isElement = true;
                 size--;
                 for (int j = i; j < elementData.length - 1; j++) {
@@ -91,7 +93,8 @@ public final class MyCollection<E> implements Collection<E> {
         ) {
             isElement = false;
             for (int i = 0; i < size; i++) {
-                if (elementData[i] != null && elementData[i].equals(obj)) {
+                if (elementData[i] != null && elementData[i].equals(obj)
+                        || elementData[i] == null && elementData[i] == obj) {
                     isElement = true;
                     break;
                 }
@@ -123,7 +126,8 @@ public final class MyCollection<E> implements Collection<E> {
         for (Object obj : c
         ) {
             for (int i = 0; i < size; i++) {
-                if (elementData[i] != null && elementData[i].equals(obj)) {
+                if (elementData[i] != null && elementData[i].equals(obj)
+                        || elementData[i] == null && elementData[i] == obj) {
                     isElement = true;
                     size--;
                     for (int j = i; j < elementData.length - 1; j++) {
@@ -144,7 +148,8 @@ public final class MyCollection<E> implements Collection<E> {
         for (int i = 0; i < size; i++) {
             for (Object obj : c
             ) {
-                if (elementData[i] != null && elementData[i].equals(obj)) {
+                if (elementData[i] != null && elementData[i].equals(obj)
+                        || elementData[i] == null && elementData[i] == obj) {
                     newCollection.add(obj);
                     break;
                 }
